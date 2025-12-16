@@ -1,0 +1,251 @@
+:root {
+  /* === PALETA DE COLORES HEYNOVA! === */
+  
+  /* Color Principal (Verde Institucional) - Para NavBar y Botones */
+  --nova-primary: #227b4b;
+  
+  /* Color de Fondo (Gris Ceniza Suave) - Para el fondo de la pantalla */
+  --nova-bg: #f0f2f5;
+  
+  /* Texto Principal (Onyx) - Casi negro, para lectura cómoda */
+  --nova-text: #231c23;
+  
+  /* Texto Secundario (Sage Dark) - Para fechas, subtítulos */
+  --nova-text-muted: #739982;
+  
+  /* Acento / Alerta (Naranja) - Para eliminar, notificaciones, likes */
+  --nova-accent: #f0611c;
+  
+  /* Destacado (Dorado Académico) - Para roles, estrellas, badges */
+  --nova-gold: #b68b06;
+  
+  /* Secundario (Sage Light) - Para detalles suaves, bordes */
+  --nova-secondary: #8abc9d;
+  
+  /* Blanco Puro - Para el fondo de las tarjetas (Cards) */
+  --nova-white: #ffffff;
+}
+
+/* === RESET BÁSICO Y ESTILOS GENERALES === */
+
+body {
+  margin: 0;
+  padding: 0;
+  /* Usamos tu gris suave de fondo */
+  background-color: var(--nova-bg); 
+  color: var(--nova-text);
+  
+  /* Fuente limpia y moderna */
+  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  /* IMPORTANTE: Quitamos el 'display: flex' y 'place-items: center' del original
+     para que tu NavBar pueda ir arriba y el contenido fluya hacia abajo */
+  min-height: 100vh;
+}
+
+/* Enlaces */
+a {
+  text-decoration: none;
+  color: inherit;
+  transition: color 0.2s;
+}
+
+a:hover {
+  color: var(--nova-primary);
+}
+
+/* Estilo base para botones */
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+/* Títulos */
+h1, h2, h3, h4, h5, h6 {
+  color: var(--nova-text);
+  margin-top: 0;
+}
+
+/* Utilidad para contenedores principales (Layout) */
+.main-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* =========================================
+   ESTILOS DE NOVABOT (Chatbot)
+   Adaptado a la paleta heyNova!
+   ========================================= */
+
+/* Contenedor principal (Fijo a la derecha) */
+.nova-bot-container {
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  /* Hereda la fuente de tu body */
+}
+
+/* --- BOTÓN FLOTANTE (FAB) --- */
+.nova-fab {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  /* Usamos el verde institucional */
+  background-color: var(--nova-primary);
+  color: var(--nova-white);
+  border: none;
+  font-size: 28px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease, background-color 0.2s;
+}
+
+.nova-fab:hover {
+  transform: scale(1.1);
+  /* Un pequeño truco para oscurecer el verde al hacer hover sin cambiar la variable */
+  filter: brightness(0.9);
+}
+
+/* --- VENTANA DEL CHAT --- */
+.nova-chat-window {
+  width: 320px;
+  height: 450px;
+  /* Fondo blanco puro para la tarjeta */
+  background-color: var(--nova-white);
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  margin-bottom: 15px;
+  border: 1px solid var(--nova-secondary); /* Borde sutil */
+  
+  /* Animación de entrada */
+  animation: slideUp 0.3s ease-out;
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* --- CABECERA --- */
+.chat-header {
+  /* Verde institucional */
+  background-color: var(--nova-primary);
+  color: var(--nova-white);
+  padding: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 600;
+  border-bottom: 2px solid var(--nova-gold); /* Un toque dorado académico abajo */
+}
+
+.close-btn {
+  background: transparent;
+  color: var(--nova-white);
+  font-size: 24px;
+  line-height: 1;
+  padding: 0;
+}
+
+.close-btn:hover {
+  color: var(--nova-gold); /* El botón de cerrar brilla en dorado */
+}
+
+/* --- CUERPO (MENSAJES) --- */
+.chat-body {
+  flex: 1;
+  padding: 15px;
+  /* Usamos el fondo gris de la app para diferenciar del input blanco */
+  background-color: var(--nova-bg); 
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* BURBUJAS DE MENSAJE */
+.msg {
+  padding: 10px 14px;
+  border-radius: 12px;
+  max-width: 80%;
+  font-size: 14px;
+  line-height: 1.5;
+  position: relative;
+  white-space: pre-wrap; 
+  word-wrap: break-word;
+}
+
+/* Mensaje del BOT */
+.msg.bot {
+  background-color: var(--nova-white);
+  color: var(--nova-text);
+  align-self: flex-start;
+  border-bottom-left-radius: 2px;
+  border: 1px solid #e0e0e0;
+}
+
+/* Mensaje del USUARIO */
+.msg.user {
+  /* El usuario habla en "Verde heyNova" */
+  background-color: var(--nova-primary); 
+  color: var(--nova-white);
+  align-self: flex-end;
+  border-bottom-right-radius: 2px;
+}
+
+/* --- FOOTER (INPUT) --- */
+.chat-footer {
+  padding: 12px;
+  background-color: var(--nova-white);
+  border-top: 1px solid var(--nova-bg);
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.chat-footer input {
+  flex: 1;
+  padding: 10px 15px;
+  border: 1px solid var(--nova-secondary); /* Borde verde suave */
+  border-radius: 20px;
+  outline: none;
+  font-size: 14px;
+  color: var(--nova-text);
+  background-color: var(--nova-bg);
+}
+
+.chat-footer input:focus {
+  border-color: var(--nova-primary);
+  background-color: var(--nova-white);
+}
+
+.chat-footer button {
+  background-color: var(--nova-primary);
+  color: var(--nova-white);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+}
+
+.chat-footer button:hover {
+  background-color: var(--nova-gold); /* El botón de enviar cambia a dorado al pasar el mouse */
+}
